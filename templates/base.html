@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twins Medcare Training Institute - Online Exams</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="institution-header">
+                <h1><i class="fas fa-stethoscope"></i> Twins Medcare Training Institute</h1>
+                <p class="subtitle">Professional Healthcare Education & Training</p>
+            </div>
+        </header>
+
+        <main>
+            <div class="welcome-section">
+                <h2><i class="fas fa-graduation-cap"></i> Online Examination Portal</h2>
+                <p class="welcome-text">
+                    Welcome to the Twins Medcare Training Institute online examination system. 
+                    Please select an exam module to begin. All exams are timed and self-marking.
+                </p>
+                
+                <div class="exam-rules">
+                    <h3><i class="fas fa-list-check"></i> Examination Rules:</h3>
+                    <ul>
+                        <li><i class="fas fa-clock"></i> Each exam is 30 minutes duration</li>
+                        <li><i class="fas fa-desktop"></i> Exam will auto-submit when time expires</li>
+                        <li><i class="fas fa-check-circle"></i> Immediate results upon submission</li>
+                        <li><i class="fas fa-ban"></i> Do not refresh the page during exam</li>
+                        <li><i class="fas fa-flag"></i> Flag questions for review</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="exams-grid">
+                <h3><i class="fas fa-file-alt"></i> Available Exams</h3>
+                <div class="grid-container">
+                    {% for exam in exams %}
+                    <div class="exam-card">
+                        <div class="exam-icon">
+                            <i class="fas fa-heart-pulse"></i>
+                        </div>
+                        <h4>{{ exam.name }}</h4>
+                        <p>MCQ Examination</p>
+                        <a href="{{ url_for('start_exam', exam_file=exam.file) }}" class="start-btn">
+                            Start Exam <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h3><i class="fas fa-info-circle"></i> Instructions for Students</h3>
+                <ol>
+                    <li>Ensure you have stable internet connection</li>
+                    <li>Use full screen mode for best experience</li>
+                    <li>Read each question carefully before answering</li>
+                    <li>Review your answers before submission</li>
+                    <li>Results are generated immediately after submission</li>
+                </ol>
+            </div>
+        </main>
+
+        <footer>
+            <p>Twins Medcare Training Institute &copy; 2024</p>
+            <p class="footer-contact">
+                <i class="fas fa-phone"></i> Contact: +255 xxx xxx xxx | 
+                <i class="fas fa-envelope"></i> exams@twinsmedcare.ac.tz
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Clear previous exam session
+        fetch('/clear-session', { method: 'POST' });
+    </script>
+</body>
+</html>

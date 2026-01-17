@@ -1,0 +1,165 @@
+<div class="exam-instructions">
+    <h3><i class="fas fa-brain"></i> Anatomy & Physiology Examination</h3>
+    <p><strong>Instructions:</strong> Answer all questions. Each question carries equal marks.</p>
+</div>
+
+<form id="examForm">
+    <!-- Question 1 -->
+    <div class="question-card" id="q1">
+        <div class="question-header">
+            <span class="question-number">Question 1</span>
+            <span class="question-marks">(2 Marks)</span>
+        </div>
+        <p class="question-text">Which of the following is NOT a function of the skeletal system?</p>
+        
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q1" value="a" data-correct="false">
+                <span class="option-text">A. Blood cell production</span>
+            </label>
+            
+            <label class="option">
+                <input type="radio" name="q1" value="b" data-correct="true">
+                <span class="option-text">B. Protein synthesis</span>
+            </label>
+            
+            <label class="option">
+                <input type="radio" name="q1" value="c" data-correct="false">
+                <span class="option-text">C. Mineral storage</span>
+            </label>
+            
+            <label class="option">
+                <input type="radio" name="q1" value="d" data-correct="false">
+                <span class="option-text">D. Support and protection</span>
+            </label>
+        </div>
+        
+        <div class="explanation" style="display: none;">
+            <p><strong>Explanation:</strong> Protein synthesis is a function of cells, not the skeletal system.</p>
+        </div>
+    </div>
+
+    <!-- Question 2 -->
+    <div class="question-card" id="q2">
+        <div class="question-header">
+            <span class="question-number">Question 2</span>
+            <span class="question-marks">(2 Marks)</span>
+        </div>
+        <p class="question-text">The longest bone in the human body is the:</p>
+        
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q2" value="a" data-correct="false">
+                <span class="option-text">A. Humerus</span>
+            </label>
+            
+            <label class="option">
+                <input type="radio" name="q2" value="b" data-correct="true">
+                <span class="option-text">B. Femur</span>
+            </label>
+            
+            <label class="option">
+                <input type="radio" name="q2" value="c" data-correct="false">
+                <span class="option-text">C. Tibia</span>
+            </label>
+            
+            <label class="option">
+                <input type="radio" name="q2" value="d" data-correct="false">
+                <span class="option-text">D. Fibula</span>
+            </label>
+        </div>
+        
+        <div class="explanation" style="display: none;">
+            <p><strong>Explanation:</strong> The femur (thigh bone) is the longest and strongest bone in the human body.</p>
+        </div>
+    </div>
+
+    <!-- Question 3 (Multiple Select) -->
+    <div class="question-card" id="q3">
+        <div class="question-header">
+            <span class="question-number">Question 3</span>
+            <span class="question-marks">(3 Marks)</span>
+        </div>
+        <p class="question-text">Which of the following are parts of the respiratory system? (Select all that apply)</p>
+        
+        <div class="options">
+            <label class="option">
+                <input type="checkbox" name="q3" value="a" data-correct="true">
+                <span class="option-text">A. Trachea</span>
+            </label>
+            
+            <label class="option">
+                <input type="checkbox" name="q3" value="b" data-correct="false">
+                <span class="option-text">B. Esophagus</span>
+            </label>
+            
+            <label class="option">
+                <input type="checkbox" name="q3" value="c" data-correct="true">
+                <span class="option-text">C. Bronchi</span>
+            </label>
+            
+            <label class="option">
+                <input type="checkbox" name="q3" value="d" data-correct="true">
+                <span class="option-text">D. Alveoli</span>
+            </label>
+        </div>
+    </div>
+
+    <!-- Question 4 (Short Answer) -->
+    <div class="question-card" id="q4">
+        <div class="question-header">
+            <span class="question-number">Question 4</span>
+            <span class="question-marks">(3 Marks)</span>
+        </div>
+        <p class="question-text">Briefly describe the function of the circulatory system:</p>
+        
+        <div class="options">
+            <textarea name="q4" rows="4" placeholder="Type your answer here..."></textarea>
+        </div>
+    </div>
+
+    <!-- Question 5 -->
+    <div class="question-card" id="q5">
+        <div class="question-header">
+            <span class="question-number">Question 5</span>
+            <span class="question-marks">(2 Marks)</span>
+        </div>
+        <p class="question-text">How many chambers does the human heart have?</p>
+        
+        <div class="options">
+            <label class="option">
+                <input type="radio" name="q5" value="a" data-correct="false">
+                <span class="option-text">A. Two</span>
+            </label>
+            
+            <label class="option">
+                <input type="radio" name="q5" value="b" data-correct="false">
+                <span class="option-text">B. Three</span>
+            </label>
+            
+            <label class="option">
+                <input type="radio" name="q5" value="c" data-correct="true">
+                <span class="option-text">C. Four</span>
+            </label>
+            
+            <label class="option">
+                <input type="radio" name="q5" value="d" data-correct="false">
+                <span class="option-text">D. Five</span>
+            </label>
+        </div>
+    </div>
+</form>
+
+<script>
+    // Add interactivity to questions
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+        input.addEventListener('change', function() {
+            const questionCard = this.closest('.question-card');
+            const explanation = questionCard.querySelector('.explanation');
+            
+            if (explanation && this.dataset.correct === 'true') {
+                explanation.style.display = 'block';
+            }
+        });
+    });
+</script>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twins Medcare - Exam in Progress</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .exam-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 15px;
+            border-bottom: 2px solid #2c3e50;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .timer-container {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #e74c3c;
+            text-align: center;
+            padding: 10px;
+            background: #fff3cd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .submit-container {
+            text-align: center;
+            margin: 20px;
+            padding: 20px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="exam-header">
+        <h2><i class="fas fa-file-medical"></i> Twins Medcare Training Institute</h2>
+        <p>Online Examination - {{ exam_file.replace('.html', '').replace('_', ' ').title() }}</p>
+        
+        <div class="timer-container">
+            <i class="fas fa-clock"></i> Time Remaining: 
+            <span id="timer">30:00</span>
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <i class="fas fa-exclamation-triangle"></i> 
+        <strong>Important:</strong> Do not refresh or close this window. Exam will auto-submit when time expires.
+    </div>
+
+    <!-- Exam content loaded here -->
+    <div id="exam-content">
+        {{ exam_content|safe }}
+    </div>
+
+    <div class="submit-container">
+        <button id="submitExam" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> Submit Exam
+        </button>
+        <button id="reviewExam" class="btn-review">
+            <i class="fas fa-flag"></i> Review Flagged Questions
+        </button>
+    </div>
+
+    <div id="results-container" style="display: none;"></div>
+
+    <script>
+        const examDuration = {{ duration }}; // seconds
+        let timeLeft = examDuration;
+        let examSubmitted = false;
+        
+        // Timer function
+        function updateTimer() {
+            if (timeLeft <= 0) {
+                submitExam();
+                return;
+            }
+            
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Change color when less than 5 minutes
+            if (timeLeft < 300) {
+                document.getElementById('timer').style.color = '#e74c3c';
+            }
+            
+            timeLeft--;
+        }
+        
+        // Collect all answers from the exam
+        function collectAnswers() {
+            const answers = {};
+            const inputs = document.querySelectorAll('input[type="radio"]:checked, input[type="text"], textarea, select');
+            
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    const name = input.name;
+                    const value = input.value;
+                    answers[name] = value;
+                } else if (input.type === 'text' || input.tagName === 'TEXTAREA' || input.tagName === 'SELECT') {
+                    answers[input.id || input.name] = input.value;
+                }
+            });
+            
+            return answers;
+        }
+        
+        // Submit exam function
+        async function submitExam() {
+            if (examSubmitted) return;
+            
+            examSubmitted = true;
+            const answers = collectAnswers();
+            
+            try {
+                const response = await fetch('/submit-exam', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ answers })
+                });
+                
+                const results = await response.json();
+                displayResults(results);
+                
+            } catch (error) {
+                alert('Error submitting exam. Please try again.');
+                console.error('Submission error:', error);
+            }
+        }
+        
+        // Display results
+        function displayResults(results) {
+            const resultsHTML = `
+                <div class="results-container">
+                    <h2><i class="fas fa-chart-line"></i> Exam Results</h2>
+                    <div class="score-card ${results.passed ? 'passed' : 'failed'}">
+                        <h3>Your Score: ${results.score}%</h3>
+                        <p>${results.correct} out of ${results.total} correct</p>
+                        <p>Time taken: ${Math.floor(results.time_taken / 60)}m ${Math.floor(results.time_taken % 60)}s</p>
+                        <h4>${results.passed ? '🎉 PASSED 🎉' : '❌ FAILED ❌'}</h4>
+                    </div>
+                    
+                    <div class="detailed-results">
+                        <h4>Detailed Results:</h4>
+                        <ul>
+                            ${results.detailed_results.map(r => `
+                                <li class="${r.correct ? 'correct-answer' : 'wrong-answer'}">
+                                    Q${r.question_id}: ${r.correct ? '✓ Correct' : '✗ Incorrect'}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="actions">
+                        <button onclick="window.location.href='/'">
+                            <i class="fas fa-home"></i> Return to Home
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('exam-content').style.display = 'none';
+            document.querySelector('.submit-container').style.display = 'none';
+            document.getElementById('results-container').innerHTML = resultsHTML;
+            document.getElementById('results-container').style.display = 'block';
+        }
+        
+        // Event listeners
+        document.getElementById('submitExam').addEventListener('click', submitExam);
+        
+        document.getElementById('reviewExam').addEventListener('click', function() {
+            const flagged = document.querySelectorAll('.question-card.flagged');
+            if (flagged.length === 0) {
+                alert('No questions flagged for review.');
+                return;
+            }
+            alert(`You have ${flagged.length} question(s) flagged for review.`);
+        });
+        
+        // Initialize timer
+        setInterval(updateTimer, 1000);
+        
+        // Auto-submit when time is up
+        setTimeout(submitExam, examDuration * 1000);
+        
+        // Add flag functionality to questions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Find all question containers and add flag button
+            const questions = document.querySelectorAll('.question-card, .question');
+            questions.forEach((question, index) => {
+                if (!question.classList.contains('question-card')) {
+                    question.classList.add('question-card');
+                }
+                
+                const flagBtn = document.createElement('button');
+                flagBtn.className = 'flag-btn';
+                flagBtn.innerHTML = '<i class="far fa-flag"></i> Flag';
+                flagBtn.onclick = function() {
+                    question.classList.toggle('flagged');
+                    flagBtn.innerHTML = question.classList.contains('flagged') ? 
+                        '<i class="fas fa-flag"></i> Flagged' : 
+                        '<i class="far fa-flag"></i> Flag';
+                };
+                
+                question.appendChild(flagBtn);
+            });
+        });
+    </script>
+</body>
+</html>
