@@ -1,837 +1,1460 @@
-<div class="exam-instructions">
-    <h3><i class="fas fa-brain"></i> CNA Anatomy & Physiology Examination</h3>
-    <p><strong>Instructions:</strong> Answer all questions. Total marks: 60. Read each question carefully.</p>
-    <p><strong>Time Allowed:</strong> 90 minutes</p>
-</div>
-
-<form id="examForm">
-    <!-- Section A: Multiple Choice (30 marks) -->
-    <div class="section-header">
-        <h4>Section A: Multiple Choice Questions (30 marks - 1 mark each)</h4>
-    </div>
-
-    <!-- Question 1 -->
-    <div class="question-card" id="q1">
-        <div class="question-header">
-            <span class="question-number">Question 1</span>
-            <span class="question-marks">(1 Mark)</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNA Anatomy & Physiology Examination - 60 Marks</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        .exam-instructions {
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .exam-instructions h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .exam-instructions p {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .exam-info {
+            display: flex;
+            justify-content: space-between;
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        
+        .section-header {
+            background-color: #1565c0;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 25px 0 15px 0;
+            text-align: center;
+            font-size: 20px;
+        }
+        
+        .question-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+        }
+        
+        .question-card:hover {
+            border-color: #90caf9;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            font-size: 18px;
+            color: #0d47a1;
+        }
+        
+        .question-marks {
+            background-color: #0d47a1;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        
+        .question-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .option:hover {
+            border-color: #64b5f6;
+            background-color: #f1f8ff;
+        }
+        
+        .option input[type="radio"], 
+        .option input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.3);
+            cursor: pointer;
+        }
+        
+        .option-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .short-answer {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .submit-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid #e0e0e0;
+        }
+        
+        #submitExam {
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        #submitExam:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #0d47a1, #1a73e8);
+        }
+        
+        #timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #e53935, #c62828);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .explanation {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 5px solid #4caf50;
+            display: none;
+        }
+        
+        .explanation p {
+            margin: 0;
+            font-size: 15px;
+            color: #2e7d32;
+        }
+        
+        .warning {
+            background-color: #fff3e0;
+            border: 2px solid #ff9800;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="timer">30:00</div>
+    
+    <div class="container">
+        <div class="exam-instructions">
+            <h3><i class="fas fa-brain"></i> CNA ANATOMY & PHYSIOLOGY EXAMINATION</h3>
+            <p><strong>Instructions:</strong> Answer ALL questions. Each correct answer carries marks as indicated.</p>
+            <p><strong>Time Allowed:</strong> 30 MINUTES | <strong>Total Marks:</strong> 60</p>
+            <p><strong>Note:</strong> This examination tests knowledge essential for Certified Nursing Assistant practice.</p>
         </div>
-        <p class="question-text">When assisting a resident with breathing difficulties, you should position them in:</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q1" value="a" data-correct="true">
-                <span class="option-text">A. Fowler's or semi-Fowler's position</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q1" value="b" data-correct="false">
-                <span class="option-text">B. Supine position</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q1" value="c" data-correct="false">
-                <span class="option-text">C. Prone position</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q1" value="d" data-correct="false">
-                <span class="option-text">D. Trendelenburg position</span>
-            </label>
+        
+        <div class="warning">
+            <i class="fas fa-exclamation-triangle"></i> WARNING: You have only 30 minutes to complete this 60-mark examination. Manage your time carefully!
         </div>
-    </div>
-
-    <!-- Question 2 -->
-    <div class="question-card" id="q2">
-        <div class="question-header">
-            <span class="question-number">Question 2</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">The normal range for adult respiratory rate is:</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q2" value="a" data-correct="false">
-                <span class="option-text">A. 8-10 breaths per minute</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q2" value="b" data-correct="true">
-                <span class="option-text">B. 12-20 breaths per minute</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q2" value="c" data-correct="false">
-                <span class="option-text">C. 22-30 breaths per minute</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q2" value="d" data-correct="false">
-                <span class="option-text">D. 30-40 breaths per minute</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 3 -->
-    <div class="question-card" id="q3">
-        <div class="question-header">
-            <span class="question-number">Question 3</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">Which pulse point is most commonly used for routine vital sign assessment?</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q3" value="a" data-correct="false">
-                <span class="option-text">A. Carotid</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q3" value="b" data-correct="true">
-                <span class="option-text">B. Radial</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q3" value="c" data-correct="false">
-                <span class="option-text">C. Femoral</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q3" value="d" data-correct="false">
-                <span class="option-text">D. Pedal</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 4 -->
-    <div class="question-card" id="q4">
-        <div class="question-header">
-            <span class="question-number">Question 4</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">When measuring blood pressure, the first Korotkoff sound represents:</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q4" value="a" data-correct="true">
-                <span class="option-text">A. Systolic pressure</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q4" value="b" data-correct="false">
-                <span class="option-text">B. Diastolic pressure</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q4" value="c" data-correct="false">
-                <span class="option-text">C. Pulse pressure</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q4" value="d" data-correct="false">
-                <span class="option-text">D. Mean arterial pressure</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 5 -->
-    <div class="question-card" id="q5">
-        <div class="question-header">
-            <span class="question-number">Question 5</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">The most accurate site for body temperature measurement in adults is:</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q5" value="a" data-correct="false">
-                <span class="option-text">A. Axillary</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q5" value="b" data-correct="false">
-                <span class="option-text">B. Oral</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q5" value="c" data-correct="true">
-                <span class="option-text">C. Rectal</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q5" value="d" data-correct="false">
-                <span class="option-text">D. Tympanic</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 6 -->
-    <div class="question-card" id="q6">
-        <div class="question-header">
-            <span class="question-number">Question 6</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">Which body system is primarily responsible for waste elimination?</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q6" value="a" data-correct="false">
-                <span class="option-text">A. Digestive system</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q6" value="b" data-correct="false">
-                <span class="option-text">B. Respiratory system</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q6" value="c" data-correct="true">
-                <span class="option-text">C. Urinary system</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q6" value="d" data-correct="false">
-                <span class="option-text">D. Integumentary system</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 7 -->
-    <div class="question-card" id="q7">
-        <div class="question-header">
-            <span class="question-number">Question 7</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">When turning a bedridden patient, you should change their position at least every:</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q7" value="a" data-correct="false">
-                <span class="option-text">A. 30 minutes</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q7" value="b" data-correct="true">
-                <span class="option-text">B. 2 hours</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q7" value="c" data-correct="false">
-                <span class="option-text">C. 4 hours</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q7" value="d" data-correct="false">
-                <span class="option-text">D. 6 hours</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 8 -->
-    <div class="question-card" id="q8">
-        <div class="question-header">
-            <span class="question-number">Question 8</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">The normal range for adult blood pressure is approximately:</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q8" value="a" data-correct="true">
-                <span class="option-text">A. 120/80 mmHg</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q8" value="b" data-correct="false">
-                <span class="option-text">B. 100/60 mmHg</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q8" value="c" data-correct="false">
-                <span class="option-text">C. 140/90 mmHg</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q8" value="d" data-correct="false">
-                <span class="option-text">D. 160/100 mmHg</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 9 -->
-    <div class="question-card" id="q9">
-        <div class="question-header">
-            <span class="question-number">Question 9</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">Which of the following is a sign of hypoxia?</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q9" value="a" data-correct="false">
-                <span class="option-text">A. Bradycardia</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q9" value="b" data-correct="true">
-                <span class="option-text">B. Cyanosis</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q9" value="c" data-correct="false">
-                <span class="option-text">C. Hypertension</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q9" value="d" data-correct="false">
-                <span class="option-text">D. Hyperthermia</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 10 -->
-    <div class="question-card" id="q10">
-        <div class="question-header">
-            <span class="question-number">Question 10</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">When assisting a patient with eating who has difficulty swallowing, you should:</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q10" value="a" data-correct="false">
-                <span class="option-text">A. Encourage them to eat quickly</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q10" value="b" data-correct="false">
-                <span class="option-text">B. Provide large bites of food</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q10" value="c" data-correct="true">
-                <span class="option-text">C. Position them upright at 90 degrees</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q10" value="d" data-correct="false">
-                <span class="option-text">D. Give them thin liquids only</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Questions 11-20 would continue similarly with CNA-focused content -->
-
-    <!-- Question 11 -->
-    <div class="question-card" id="q11">
-        <div class="question-header">
-            <span class="question-number">Question 11</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">The medical term for difficulty breathing is:</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q11" value="a" data-correct="false">
-                <span class="option-text">A. Tachycardia</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q11" value="b" data-correct="true">
-                <span class="option-text">B. Dyspnea</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q11" value="c" data-correct="false">
-                <span class="option-text">C. Bradypnea</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q11" value="d" data-correct="false">
-                <span class="option-text">D. Cyanosis</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 12 -->
-    <div class="question-card" id="q12">
-        <div class="question-header">
-            <span class="question-number">Question 12</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">Which of the following is NOT a normal age-related change in the musculoskeletal system?</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q12" value="a" data-correct="false">
-                <span class="option-text">A. Decreased bone density</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q12" value="b" data-correct="false">
-                <span class="option-text">B. Loss of muscle mass</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q12" value="c" data-correct="false">
-                <span class="option-text">C. Stiffening of joints</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q12" value="d" data-correct="true">
-                <span class="option-text">D. Increased height</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 13 -->
-    <div class="question-card" id="q13">
-        <div class="question-header">
-            <span class="question-number">Question 13</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">When performing perineal care on a female patient, you should wipe:</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q13" value="a" data-correct="true">
-                <span class="option-text">A. From front to back</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q13" value="b" data-correct="false">
-                <span class="option-text">B. From back to front</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q13" value="c" data-correct="false">
-                <span class="option-text">C. In a circular motion</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q13" value="d" data-correct="false">
-                <span class="option-text">D. Side to side</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 14 -->
-    <div class="question-card" id="q14">
-        <div class="question-header">
-            <span class="question-number">Question 14</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">The normal adult heart rate range is:</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q14" value="a" data-correct="false">
-                <span class="option-text">A. 40-60 beats per minute</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q14" value="b" data-correct="true">
-                <span class="option-text">B. 60-100 beats per minute</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q14" value="c" data-correct="false">
-                <span class="option-text">C. 100-120 beats per minute</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q14" value="d" data-correct="false">
-                <span class="option-text">D. 120-140 beats per minute</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 15 -->
-    <div class="question-card" id="q15">
-        <div class="question-header">
-            <span class="question-number">Question 15</span>
-            <span class="question-marks">(1 Mark)</span>
-        </div>
-        <p class="question-text">Which body system is affected by decubitus ulcers (pressure sores)?</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q15" value="a" data-correct="false">
-                <span class="option-text">A. Nervous system</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q15" value="b" data-correct="true">
-                <span class="option-text">B. Integumentary system</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q15" value="c" data-correct="false">
-                <span class="option-text">C. Circulatory system</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q15" value="d" data-correct="false">
-                <span class="option-text">D. Respiratory system</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Continue with questions 16-30 in similar format -->
-    <!-- I've shown 15 MCQ questions above, the remaining 15 would follow -->
-
-    <!-- Section B: Multiple Select (15 marks) -->
-    <div class="section-header">
-        <h4>Section B: Multiple Select Questions (15 marks - 1 mark per correct selection)</h4>
-    </div>
-
-    <!-- Question 16 -->
-    <div class="question-card" id="q16">
-        <div class="question-header">
-            <span class="question-number">Question 16</span>
-            <span class="question-marks">(3 Marks)</span>
-        </div>
-        <p class="question-text">Which of the following are vital signs? (Select all that apply)</p>
-        <div class="options">
-            <label class="option">
-                <input type="checkbox" name="q16" value="a" data-correct="true">
-                <span class="option-text">A. Blood pressure</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q16" value="b" data-correct="true">
-                <span class="option-text">B. Temperature</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q16" value="c" data-correct="true">
-                <span class="option-text">C. Pulse rate</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q16" value="d" data-correct="true">
-                <span class="option-text">D. Respiratory rate</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q16" value="e" data-correct="false">
-                <span class="option-text">E. Blood glucose level</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 17 -->
-    <div class="question-card" id="q17">
-        <div class="question-header">
-            <span class="question-number">Question 17</span>
-            <span class="question-marks">(3 Marks)</span>
-        </div>
-        <p class="question-text">Which of the following are signs of skin breakdown? (Select all that apply)</p>
-        <div class="options">
-            <label class="option">
-                <input type="checkbox" name="q17" value="a" data-correct="true">
-                <span class="option-text">A. Redness that doesn't fade</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q17" value="b" data-correct="true">
-                <span class="option-text">B. Blistering</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q17" value="c" data-correct="true">
-                <span class="option-text">C. Skin temperature changes</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q17" value="d" data-correct="false">
-                <span class="option-text">D. Increased hair growth</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q17" value="e" data-correct="true">
-                <span class="option-text">E. Open areas or ulcers</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 18 -->
-    <div class="question-card" id="q18">
-        <div class="question-header">
-            <span class="question-number">Question 18</span>
-            <span class="question-marks">(3 Marks)</span>
-        </div>
-        <p class="question-text">Which of the following are functions of the skin? (Select all that apply)</p>
-        <div class="options">
-            <label class="option">
-                <input type="checkbox" name="q18" value="a" data-correct="true">
-                <span class="option-text">A. Protection from infection</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q18" value="b" data-correct="true">
-                <span class="option-text">B. Temperature regulation</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q18" value="c" data-correct="true">
-                <span class="option-text">C. Sensation</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q18" value="d" data-correct="true">
-                <span class="option-text">D. Vitamin D synthesis</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q18" value="e" data-correct="false">
-                <span class="option-text">E. Production of digestive enzymes</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 19 -->
-    <div class="question-card" id="q19">
-        <div class="question-header">
-            <span class="question-number">Question 19</span>
-            <span class="question-marks">(3 Marks)</span>
-        </div>
-        <p class="question-text">Which of the following are common sites for pressure ulcers? (Select all that apply)</p>
-        <div class="options">
-            <label class="option">
-                <input type="checkbox" name="q19" value="a" data-correct="true">
-                <span class="option-text">A. Sacrum</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q19" value="b" data-correct="true">
-                <span class="option-text">B. Heels</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q19" value="c" data-correct="true">
-                <span class="option-text">C. Elbows</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q19" value="d" data-correct="false">
-                <span class="option-text">D. Forehead</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q19" value="e" data-correct="true">
-                <span class="option-text">E. Hip bones</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 20 -->
-    <div class="question-card" id="q20">
-        <div class="question-header">
-            <span class="question-number">Question 20</span>
-            <span class="question-marks">(3 Marks)</span>
-        </div>
-        <p class="question-text">Which of the following are signs of dehydration in an elderly patient? (Select all that apply)</p>
-        <div class="options">
-            <label class="option">
-                <input type="checkbox" name="q20" value="a" data-correct="true">
-                <span class="option-text">A. Dark yellow urine</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q20" value="b" data-correct="true">
-                <span class="option-text">B. Dry mucous membranes</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q20" value="c" data-correct="true">
-                <span class="option-text">C. Poor skin turgor</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q20" value="d" data-correct="false">
-                <span class="option-text">D. Increased urine output</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q20" value="e" data-correct="true">
-                <span class="option-text">E. Confusion or dizziness</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Section C: Short Answer (15 marks) -->
-    <div class="section-header">
-        <h4>Section C: Short Answer Questions (15 marks)</h4>
-    </div>
-
-    <!-- Question 21 -->
-    <div class="question-card" id="q21">
-        <div class="question-header">
-            <span class="question-number">Question 21</span>
-            <span class="question-marks">(3 Marks)</span>
-        </div>
-        <p class="question-text">List three important observations to report about a patient's urine:</p>
-        <div class="options">
-            <textarea name="q21" rows="4" placeholder="Type your answer here..."></textarea>
-        </div>
-    </div>
-
-    <!-- Question 22 -->
-    <div class="question-card" id="q22">
-        <div class="question-header">
-            <span class="question-number">Question 22</span>
-            <span class="question-marks">(3 Marks)</span>
-        </div>
-        <p class="question-text">Describe the proper body mechanics you should use when transferring a patient from bed to wheelchair:</p>
-        <div class="options">
-            <textarea name="q22" rows="4" placeholder="Type your answer here..."></textarea>
-        </div>
-    </div>
-
-    <!-- Question 23 -->
-    <div class="question-card" id="q23">
-        <div class="question-header">
-            <span class="question-number">Question 23</span>
-            <span class="question-marks">(3 Marks)</span>
-        </div>
-        <p class="question-text">Name three changes in the respiratory system that occur with aging:</p>
-        <div class="options">
-            <textarea name="q23" rows="4" placeholder="Type your answer here..."></textarea>
-        </div>
-    </div>
-
-    <!-- Question 24 -->
-    <div class="question-card" id="q24">
-        <div class="question-header">
-            <span class="question-number">Question 24</span>
-            <span class="question-marks">(3 Marks)</span>
-        </div>
-        <p class="question-text">Explain why it's important to position bedridden patients properly:</p>
-        <div class="options">
-            <textarea name="q24" rows="4" placeholder="Type your answer here..."></textarea>
-        </div>
-    </div>
-
-    <!-- Question 25 -->
-    <div class="question-card" id="q25">
-        <div class="question-header">
-            <span class="question-number">Question 25</span>
-            <span class="question-marks">(3 Marks)</span>
-        </div>
-        <p class="question-text">Describe the correct procedure for measuring radial pulse:</p>
-        <div class="options">
-            <textarea name="q25" rows="4" placeholder="Type your answer here..."></textarea>
-        </div>
-    </div>
-
-    <!-- Section D: Scenario-Based Questions (Original questions from your file, now renumbered) -->
-    <div class="section-header">
-        <h4>Section D: Scenario-Based Questions (10 marks)</h4>
-    </div>
-
-    <!-- Question 26 (Original Q1) -->
-    <div class="question-card" id="q26">
-        <div class="question-header">
-            <span class="question-number">Question 26</span>
-            <span class="question-marks">(2 Marks)</span>
-        </div>
-        <p class="question-text">Which of the following is NOT a function of the skeletal system?</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q26" value="a" data-correct="false">
-                <span class="option-text">A. Blood cell production</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q26" value="b" data-correct="true">
-                <span class="option-text">B. Protein synthesis</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q26" value="c" data-correct="false">
-                <span class="option-text">C. Mineral storage</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q26" value="d" data-correct="false">
-                <span class="option-text">D. Support and protection</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 27 (Original Q2) -->
-    <div class="question-card" id="q27">
-        <div class="question-header">
-            <span class="question-number">Question 27</span>
-            <span class="question-marks">(2 Marks)</span>
-        </div>
-        <p class="question-text">The longest bone in the human body is the:</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q27" value="a" data-correct="false">
-                <span class="option-text">A. Humerus</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q27" value="b" data-correct="true">
-                <span class="option-text">B. Femur</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q27" value="c" data-correct="false">
-                <span class="option-text">C. Tibia</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q27" value="d" data-correct="false">
-                <span class="option-text">D. Fibula</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 28 (Original Q3) -->
-    <div class="question-card" id="q28">
-        <div class="question-header">
-            <span class="question-number">Question 28</span>
-            <span class="question-marks">(2 Marks)</span>
-        </div>
-        <p class="question-text">Which of the following are parts of the respiratory system? (Select all that apply)</p>
-        <div class="options">
-            <label class="option">
-                <input type="checkbox" name="q28" value="a" data-correct="true">
-                <span class="option-text">A. Trachea</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q28" value="b" data-correct="false">
-                <span class="option-text">B. Esophagus</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q28" value="c" data-correct="true">
-                <span class="option-text">C. Bronchi</span>
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q28" value="d" data-correct="true">
-                <span class="option-text">D. Alveoli</span>
-            </label>
-        </div>
-    </div>
-
-    <!-- Question 29 (Original Q4) -->
-    <div class="question-card" id="q29">
-        <div class="question-header">
-            <span class="question-number">Question 29</span>
-            <span class="question-marks">(2 Marks)</span>
-        </div>
-        <p class="question-text">Briefly describe the function of the circulatory system:</p>
-        <div class="options">
-            <textarea name="q29" rows="4" placeholder="Type your answer here..."></textarea>
-        </div>
-    </div>
-
-    <!-- Question 30 (Original Q5) -->
-    <div class="question-card" id="q30">
-        <div class="question-header">
-            <span class="question-number">Question 30</span>
-            <span class="question-marks">(2 Marks)</span>
-        </div>
-        <p class="question-text">How many chambers does the human heart have?</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q30" value="a" data-correct="false">
-                <span class="option-text">A. Two</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q30" value="b" data-correct="false">
-                <span class="option-text">B. Three</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q30" value="c" data-correct="true">
-                <span class="option-text">C. Four</span>
-            </label>
-            <label class="option">
-                <input type="radio" name="q30" value="d" data-correct="false">
-                <span class="option-text">D. Five</span>
-            </label>
-        </div>
-    </div>
-
-    <div class="submit-section">
-        <button type="button" id="submitExam">Submit Examination</button>
-        <p id="scoreDisplay" style="display: none;"></p>
-    </div>
-</form>
-
-<script>
-    // Add interactivity to questions
-    document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
-        input.addEventListener('change', function() {
-            const questionCard = this.closest('.question-card');
-            const explanation = questionCard.querySelector('.explanation');
+        
+        <form id="examForm">
+            <!-- SECTION A: 30 MULTIPLE CHOICE QUESTIONS (30 MARKS) -->
+            <div class="section-header">
+                <h4>SECTION A: MULTIPLE CHOICE QUESTIONS (30 Questions × 1 Mark Each = 30 Marks)</h4>
+            </div>
             
-            if (explanation && this.dataset.correct === 'true') {
-                explanation.style.display = 'block';
+            <!-- Question 1 -->
+            <div class="question-card" id="q1">
+                <div class="question-header">
+                    <span class="question-number">Question 1</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">When measuring a patient's blood pressure, the first sound you hear through the stethoscope represents:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q1" value="a" data-correct="true">
+                        <span class="option-text">A. Systolic pressure</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="b" data-correct="false">
+                        <span class="option-text">B. Diastolic pressure</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="c" data-correct="false">
+                        <span class="option-text">C. Pulse pressure</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q1" value="d" data-correct="false">
+                        <span class="option-text">D. Mean arterial pressure</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="question-card" id="q2">
+                <div class="question-header">
+                    <span class="question-number">Question 2</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">The most accurate site for body temperature measurement in adult patients is:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q2" value="a" data-correct="false">
+                        <span class="option-text">A. Oral (mouth)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="b" data-correct="false">
+                        <span class="option-text">B. Axillary (armpit)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="c" data-correct="true">
+                        <span class="option-text">C. Rectal</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q2" value="d" data-correct="false">
+                        <span class="option-text">D. Tympanic (ear)</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="question-card" id="q3">
+                <div class="question-header">
+                    <span class="question-number">Question 3</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">When turning a bedridden patient to prevent pressure ulcers, you should reposition them at least every:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q3" value="a" data-correct="false">
+                        <span class="option-text">A. 30 minutes</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="b" data-correct="true">
+                        <span class="option-text">B. 2 hours</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="c" data-correct="false">
+                        <span class="option-text">C. 4 hours</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q3" value="d" data-correct="false">
+                        <span class="option-text">D. 6 hours</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="question-card" id="q4">
+                <div class="question-header">
+                    <span class="question-number">Question 4</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">Which pulse point is most commonly used for routine vital sign assessment?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q4" value="a" data-correct="false">
+                        <span class="option-text">A. Carotid (neck)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="b" data-correct="true">
+                        <span class="option-text">B. Radial (wrist)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="c" data-correct="false">
+                        <span class="option-text">C. Femoral (groin)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q4" value="d" data-correct="false">
+                        <span class="option-text">D. Pedal (foot)</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="question-card" id="q5">
+                <div class="question-header">
+                    <span class="question-number">Question 5</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">The normal range for adult respiratory rate is:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q5" value="a" data-correct="false">
+                        <span class="option-text">A. 8-10 breaths per minute</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="b" data-correct="true">
+                        <span class="option-text">B. 12-20 breaths per minute</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="c" data-correct="false">
+                        <span class="option-text">C. 22-30 breaths per minute</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q5" value="d" data-correct="false">
+                        <span class="option-text">D. 30-40 breaths per minute</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 6 -->
+            <div class="question-card" id="q6">
+                <div class="question-header">
+                    <span class="question-number">Question 6</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">When assisting a patient with dyspnea (difficulty breathing), the BEST position to place them in is:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q6" value="a" data-correct="true">
+                        <span class="option-text">A. Fowler's or semi-Fowler's position</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="b" data-correct="false">
+                        <span class="option-text">B. Supine position (flat on back)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="c" data-correct="false">
+                        <span class="option-text">C. Prone position (on stomach)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q6" value="d" data-correct="false">
+                        <span class="option-text">D. Trendelenburg position (feet elevated)</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 7 -->
+            <div class="question-card" id="q7">
+                <div class="question-header">
+                    <span class="question-number">Question 7</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">Which of the following is a sign of hypoxia (low oxygen levels)?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q7" value="a" data-correct="false">
+                        <span class="option-text">A. Bradycardia (slow heart rate)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="b" data-correct="true">
+                        <span class="option-text">B. Cyanosis (blue skin coloration)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="c" data-correct="false">
+                        <span class="option-text">C. Hypertension (high blood pressure)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q7" value="d" data-correct="false">
+                        <span class="option-text">D. Hypothermia (low body temperature)</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 8 -->
+            <div class="question-card" id="q8">
+                <div class="question-header">
+                    <span class="question-number">Question 8</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">The medical term for difficulty swallowing is:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q8" value="a" data-correct="true">
+                        <span class="option-text">A. Dysphagia</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="b" data-correct="false">
+                        <span class="option-text">B. Dyspnea</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="c" data-correct="false">
+                        <span class="option-text">C. Dysuria</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q8" value="d" data-correct="false">
+                        <span class="option-text">D. Dyspepsia</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 9 -->
+            <div class="question-card" id="q9">
+                <div class="question-header">
+                    <span class="question-number">Question 9</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">When performing perineal care on a female patient, you should always wipe:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q9" value="a" data-correct="true">
+                        <span class="option-text">A. From front to back</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="b" data-correct="false">
+                        <span class="option-text">B. From back to front</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="c" data-correct="false">
+                        <span class="option-text">C. In a circular motion</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q9" value="d" data-correct="false">
+                        <span class="option-text">D. Side to side</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 10 -->
+            <div class="question-card" id="q10">
+                <div class="question-header">
+                    <span class="question-number">Question 10</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">The normal range for adult blood pressure is approximately:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q10" value="a" data-correct="true">
+                        <span class="option-text">A. 120/80 mmHg</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="b" data-correct="false">
+                        <span class="option-text">B. 100/60 mmHg</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="c" data-correct="false">
+                        <span class="option-text">C. 140/90 mmHg</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q10" value="d" data-correct="false">
+                        <span class="option-text">D. 160/100 mmHg</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 11 -->
+            <div class="question-card" id="q11">
+                <div class="question-header">
+                    <span class="question-number">Question 11</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">The normal adult heart rate range is:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q11" value="a" data-correct="false">
+                        <span class="option-text">A. 40-60 beats per minute</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="b" data-correct="true">
+                        <span class="option-text">B. 60-100 beats per minute</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="c" data-correct="false">
+                        <span class="option-text">C. 100-120 beats per minute</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q11" value="d" data-correct="false">
+                        <span class="option-text">D. 120-140 beats per minute</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 12 -->
+            <div class="question-card" id="q12">
+                <div class="question-header">
+                    <span class="question-number">Question 12</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">Which body system is primarily affected by decubitus ulcers (pressure sores)?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q12" value="a" data-correct="false">
+                        <span class="option-text">A. Nervous system</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="b" data-correct="true">
+                        <span class="option-text">B. Integumentary system (skin)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="c" data-correct="false">
+                        <span class="option-text">C. Circulatory system</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q12" value="d" data-correct="false">
+                        <span class="option-text">D. Respiratory system</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 13 -->
+            <div class="question-card" id="q13">
+                <div class="question-header">
+                    <span class="question-number">Question 13</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">Which of the following is NOT a normal age-related change in the musculoskeletal system?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q13" value="a" data-correct="false">
+                        <span class="option-text">A. Decreased bone density</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="b" data-correct="false">
+                        <span class="option-text">B. Loss of muscle mass</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="c" data-correct="false">
+                        <span class="option-text">C. Stiffening of joints</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q13" value="d" data-correct="true">
+                        <span class="option-text">D. Increased height</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 14 -->
+            <div class="question-card" id="q14">
+                <div class="question-header">
+                    <span class="question-number">Question 14</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">When assisting a patient with eating who has difficulty swallowing, you should:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q14" value="a" data-correct="false">
+                        <span class="option-text">A. Encourage them to eat quickly</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="b" data-correct="false">
+                        <span class="option-text">B. Provide large bites of food</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="c" data-correct="true">
+                        <span class="option-text">C. Position them upright at 90 degrees</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q14" value="d" data-correct="false">
+                        <span class="option-text">D. Give them thin liquids only</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 15 -->
+            <div class="question-card" id="q15">
+                <div class="question-header">
+                    <span class="question-number">Question 15</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">The medical term for difficulty breathing is:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q15" value="a" data-correct="false">
+                        <span class="option-text">A. Tachycardia</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="b" data-correct="true">
+                        <span class="option-text">B. Dyspnea</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="c" data-correct="false">
+                        <span class="option-text">C. Bradypnea</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q15" value="d" data-correct="false">
+                        <span class="option-text">D. Cyanosis</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 16 -->
+            <div class="question-card" id="q16">
+                <div class="question-header">
+                    <span class="question-number">Question 16</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">Which of the following is a sign of dehydration in elderly patients?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q16" value="a" data-correct="false">
+                        <span class="option-text">A. Increased urine output</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="b" data-correct="true">
+                        <span class="option-text">B. Poor skin turgor (tenting)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="c" data-correct="false">
+                        <span class="option-text">C. Moist mucous membranes</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q16" value="d" data-correct="false">
+                        <span class="option-text">D. Clear, pale urine</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 17 -->
+            <div class="question-card" id="q17">
+                <div class="question-header">
+                    <span class="question-number">Question 17</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">The correct anatomical term for the armpit area is:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q17" value="a" data-correct="false">
+                        <span class="option-text">A. Inguinal</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="b" data-correct="true">
+                        <span class="option-text">B. Axillary</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="c" data-correct="false">
+                        <span class="option-text">C. Cervical</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q17" value="d" data-correct="false">
+                        <span class="option-text">D. Femoral</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 18 -->
+            <div class="question-card" id="q18">
+                <div class="question-header">
+                    <span class="question-number">Question 18</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">When transferring a patient from bed to wheelchair, proper body mechanics include:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q18" value="a" data-correct="false">
+                        <span class="option-text">A. Bending at the waist with straight legs</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="b" data-correct="true">
+                        <span class="option-text">B. Bending at the knees, keeping back straight</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="c" data-correct="false">
+                        <span class="option-text">C. Twisting at the waist while lifting</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q18" value="d" data-correct="false">
+                        <span class="option-text">D. Keeping feet close together for stability</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 19 -->
+            <div class="question-card" id="q19">
+                <div class="question-header">
+                    <span class="question-number">Question 19</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">Which of the following is the largest organ of the human body?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q19" value="a" data-correct="true">
+                        <span class="option-text">A. Skin</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="b" data-correct="false">
+                        <span class="option-text">B. Liver</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="c" data-correct="false">
+                        <span class="option-text">C. Lungs</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q19" value="d" data-correct="false">
+                        <span class="option-text">D. Intestines</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 20 -->
+            <div class="question-card" id="q20">
+                <div class="question-header">
+                    <span class="question-number">Question 20</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">A patient with orthopnea has difficulty breathing when:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q20" value="a" data-correct="true">
+                        <span class="option-text">A. Lying flat</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="b" data-correct="false">
+                        <span class="option-text">B. Sitting upright</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="c" data-correct="false">
+                        <span class="option-text">C. Standing</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q20" value="d" data-correct="false">
+                        <span class="option-text">D. Walking</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 21 -->
+            <div class="question-card" id="q21">
+                <div class="question-header">
+                    <span class="question-number">Question 21</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">Which of the following vital signs is typically measured in breaths per minute?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q21" value="a" data-correct="false">
+                        <span class="option-text">A. Blood pressure</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q21" value="b" data-correct="false">
+                        <span class="option-text">B. Pulse</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q21" value="c" data-correct="true">
+                        <span class="option-text">C. Respiratory rate</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q21" value="d" data-correct="false">
+                        <span class="option-text">D. Temperature</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 22 -->
+            <div class="question-card" id="q22">
+                <div class="question-header">
+                    <span class="question-number">Question 22</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">The normal body temperature range for adults is approximately:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q22" value="a" data-correct="false">
+                        <span class="option-text">A. 35.5-36.5°C (96-98°F)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q22" value="b" data-correct="true">
+                        <span class="option-text">B. 36.5-37.5°C (97.7-99.5°F)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q22" value="c" data-correct="false">
+                        <span class="option-text">C. 37.5-38.5°C (99.5-101.3°F)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q22" value="d" data-correct="false">
+                        <span class="option-text">D. 38.5-39.5°C (101.3-103.1°F)</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 23 -->
+            <div class="question-card" id="q23">
+                <div class="question-header">
+                    <span class="question-number">Question 23</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">Which of the following is a common site for checking skin turgor in elderly patients?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q23" value="a" data-correct="false">
+                        <span class="option-text">A. Forehead</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q23" value="b" data-correct="true">
+                        <span class="option-text">B. Sternum (chest)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q23" value="c" data-correct="false">
+                        <span class="option-text">C. Back of hand</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q23" value="d" data-correct="false">
+                        <span class="option-text">D. Abdomen</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 24 -->
+            <div class="question-card" id="q24">
+                <div class="question-header">
+                    <span class="question-number">Question 24</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">When providing mouth care to an unconscious patient, you should position them:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q24" value="a" data-correct="false">
+                        <span class="option-text">A. Prone (on stomach)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q24" value="b" data-correct="false">
+                        <span class="option-text">B. Supine (flat on back)</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q24" value="c" data-correct="true">
+                        <span class="option-text">C. On their side</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q24" value="d" data-correct="false">
+                        <span class="option-text">D. In Fowler's position</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 25 -->
+            <div class="question-card" id="q25">
+                <div class="question-header">
+                    <span class="question-number">Question 25</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">The medical term for high blood pressure is:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q25" value="a" data-correct="true">
+                        <span class="option-text">A. Hypertension</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q25" value="b" data-correct="false">
+                        <span class="option-text">B. Hypotension</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q25" value="c" data-correct="false">
+                        <span class="option-text">C. Tachycardia</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q25" value="d" data-correct="false">
+                        <span class="option-text">D. Bradycardia</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 26 -->
+            <div class="question-card" id="q26">
+                <div class="question-header">
+                    <span class="question-number">Question 26</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">Which of the following is a function of the skeletal system?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q26" value="a" data-correct="false">
+                        <span class="option-text">A. Protein synthesis</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q26" value="b" data-correct="true">
+                        <span class="option-text">B. Blood cell production</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q26" value="c" data-correct="false">
+                        <span class="option-text">C. Digestion of food</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q26" value="d" data-correct="false">
+                        <span class="option-text">D. Hormone regulation</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 27 -->
+            <div class="question-card" id="q27">
+                <div class="question-header">
+                    <span class="question-number">Question 27</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">When measuring a patient's pulse, you should count for how many seconds?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q27" value="a" data-correct="false">
+                        <span class="option-text">A. 15 seconds and multiply by 4</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q27" value="b" data-correct="true">
+                        <span class="option-text">B. 30 seconds and multiply by 2</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q27" value="c" data-correct="false">
+                        <span class="option-text">C. 10 seconds and multiply by 6</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q27" value="d" data-correct="false">
+                        <span class="option-text">D. 60 seconds (full minute)</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 28 -->
+            <div class="question-card" id="q28">
+                <div class="question-header">
+                    <span class="question-number">Question 28</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">Which of the following is NOT part of the respiratory system?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q28" value="a" data-correct="false">
+                        <span class="option-text">A. Trachea</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="b" data-correct="false">
+                        <span class="option-text">B. Bronchi</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="c" data-correct="true">
+                        <span class="option-text">C. Esophagus</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q28" value="d" data-correct="false">
+                        <span class="option-text">D. Alveoli</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 29 -->
+            <div class="question-card" id="q29">
+                <div class="question-header">
+                    <span class="question-number">Question 29</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">The anatomical term for the back of the knee is:</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q29" value="a" data-correct="false">
+                        <span class="option-text">A. Popliteal</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q29" value="b" data-correct="true">
+                        <span class="option-text">B. Patellar</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q29" value="c" data-correct="false">
+                        <span class="option-text">C. Plantar</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q29" value="d" data-correct="false">
+                        <span class="option-text">D. Palmar</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 30 -->
+            <div class="question-card" id="q30">
+                <div class="question-header">
+                    <span class="question-number">Question 30</span>
+                    <span class="question-marks">(1 Mark)</span>
+                </div>
+                <p class="question-text">How many chambers does the human heart have?</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="q30" value="a" data-correct="false">
+                        <span class="option-text">A. Two</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="b" data-correct="false">
+                        <span class="option-text">B. Three</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="c" data-correct="true">
+                        <span class="option-text">C. Four</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="q30" value="d" data-correct="false">
+                        <span class="option-text">D. Five</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- SECTION B: MULTIPLE SELECT QUESTIONS (15 MARKS) -->
+            <div class="section-header">
+                <h4>SECTION B: MULTIPLE SELECT QUESTIONS (5 Questions × 3 Marks Each = 15 Marks)</h4>
+            </div>
+            
+            <!-- Question 31 -->
+            <div class="question-card" id="q31">
+                <div class="question-header">
+                    <span class="question-number">Question 31</span>
+                    <span class="question-marks">(3 Marks)</span>
+                </div>
+                <p class="question-text">Which of the following are considered vital signs? (Select all that apply)</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="a" data-correct="true">
+                        <span class="option-text">A. Blood pressure</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="b" data-correct="true">
+                        <span class="option-text">B. Temperature</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="c" data-correct="true">
+                        <span class="option-text">C. Pulse rate</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="d" data-correct="true">
+                        <span class="option-text">D. Respiratory rate</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q31" value="e" data-correct="false">
+                        <span class="option-text">E. Blood glucose level</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 32 -->
+            <div class="question-card" id="q32">
+                <div class="question-header">
+                    <span class="question-number">Question 32</span>
+                    <span class="question-marks">(3 Marks)</span>
+                </div>
+                <p class="question-text">Which of the following are common sites for pressure ulcers? (Select all that apply)</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="a" data-correct="true">
+                        <span class="option-text">A. Sacrum</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="b" data-correct="true">
+                        <span class="option-text">B. Heels</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="c" data-correct="true">
+                        <span class="option-text">C. Elbows</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="d" data-correct="false">
+                        <span class="option-text">D. Forehead</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q32" value="e" data-correct="true">
+                        <span class="option-text">E. Hip bones</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 33 -->
+            <div class="question-card" id="q33">
+                <div class="question-header">
+                    <span class="question-number">Question 33</span>
+                    <span class="question-marks">(3 Marks)</span>
+                </div>
+                <p class="question-text">Which of the following are signs of skin breakdown? (Select all that apply)</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="a" data-correct="true">
+                        <span class="option-text">A. Redness that doesn't fade</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="b" data-correct="true">
+                        <span class="option-text">B. Blistering</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="c" data-correct="true">
+                        <span class="option-text">C. Skin temperature changes</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="d" data-correct="false">
+                        <span class="option-text">D. Increased hair growth</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q33" value="e" data-correct="true">
+                        <span class="option-text">E. Open areas or ulcers</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 34 -->
+            <div class="question-card" id="q34">
+                <div class="question-header">
+                    <span class="question-number">Question 34</span>
+                    <span class="question-marks">(3 Marks)</span>
+                </div>
+                <p class="question-text">Which of the following are functions of the skin? (Select all that apply)</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="a" data-correct="true">
+                        <span class="option-text">A. Protection from infection</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="b" data-correct="true">
+                        <span class="option-text">B. Temperature regulation</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="c" data-correct="true">
+                        <span class="option-text">C. Sensation</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="d" data-correct="true">
+                        <span class="option-text">D. Vitamin D synthesis</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q34" value="e" data-correct="false">
+                        <span class="option-text">E. Production of digestive enzymes</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Question 35 -->
+            <div class="question-card" id="q35">
+                <div class="question-header">
+                    <span class="question-number">Question 35</span>
+                    <span class="question-marks">(3 Marks)</span>
+                </div>
+                <p class="question-text">Which of the following are parts of the respiratory system? (Select all that apply)</p>
+                <div class="options">
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="a" data-correct="true">
+                        <span class="option-text">A. Trachea</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="b" data-correct="false">
+                        <span class="option-text">B. Esophagus</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="c" data-correct="true">
+                        <span class="option-text">C. Bronchi</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="d" data-correct="true">
+                        <span class="option-text">D. Alveoli</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" name="q35" value="e" data-correct="false">
+                        <span class="option-text">E. Stomach</span>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- SECTION C: SHORT ANSWER QUESTIONS (15 MARKS) -->
+            <div class="section-header">
+                <h4>SECTION C: SHORT ANSWER QUESTIONS (5 Questions × 3 Marks Each = 15 Marks)</h4>
+            </div>
+            
+            <!-- Question 36 -->
+            <div class="question-card" id="q36">
+                <div class="question-header">
+                    <span class="question-number">Question 36</span>
+                    <span class="question-marks">(3 Marks)</span>
+                </div>
+                <p class="question-text">List three important observations to report about a patient's urine:</p>
+                <div class="options">
+                    <textarea class="short-answer" name="q36" rows="4" placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Question 37 -->
+            <div class="question-card" id="q37">
+                <div class="question-header">
+                    <span class="question-number">Question 37</span>
+                    <span class="question-marks">(3 Marks)</span>
+                </div>
+                <p class="question-text">Describe the proper body mechanics you should use when transferring a patient from bed to wheelchair:</p>
+                <div class="options">
+                    <textarea class="short-answer" name="q37" rows="4" placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Question 38 -->
+            <div class="question-card" id="q38">
+                <div class="question-header">
+                    <span class="question-number">Question 38</span>
+                    <span class="question-marks">(3 Marks)</span>
+                </div>
+                <p class="question-text">Name three changes in the respiratory system that occur with aging:</p>
+                <div class="options">
+                    <textarea class="short-answer" name="q38" rows="4" placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Question 39 -->
+            <div class="question-card" id="q39">
+                <div class="question-header">
+                    <span class="question-number">Question 39</span>
+                    <span class="question-marks">(3 Marks)</span>
+                </div>
+                <p class="question-text">Explain why it's important to position bedridden patients properly:</p>
+                <div class="options">
+                    <textarea class="short-answer" name="q39" rows="4" placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Question 40 -->
+            <div class="question-card" id="q40">
+                <div class="question-header">
+                    <span class="question-number">Question 40</span>
+                    <span class="question-marks">(3 Marks)</span>
+                </div>
+                <p class="question-text">Describe the correct procedure for measuring radial pulse:</p>
+                <div class="options">
+                    <textarea class="short-answer" name="q40" rows="4" placeholder="Type your answer here..."></textarea>
+                </div>
+            </div>
+            
+            <div class="submit-section">
+                <button type="button" id="submitExam">SUBMIT EXAMINATION</button>
+                <p style="margin-top: 15px; font-style: italic;">Total Examination: 60 Marks | Time: 30 Minutes</p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // TIMER FUNCTIONALITY - 30 MINUTES
+        let timeLeft = 30 * 60; // 30 minutes in seconds
+        const timerElement = document.getElementById('timer');
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 300) { // Last 5 minutes
+                timerElement.style.background = 'linear-gradient(135deg, #ff9800, #f57c00)';
+                if (timeLeft <= 60) { // Last minute
+                    timerElement.style.background = 'linear-gradient(135deg, #f44336, #d32f2f)';
+                    timerElement.style.animation = 'pulse 1s infinite';
+                }
+            }
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                timerElement.textContent = "TIME'S UP!";
+                alert("Time is up! Your exam will be submitted automatically.");
+                submitExam();
+            } else {
+                timeLeft--;
+            }
+        }
+        
+        // Add pulsing animation for last minute
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        const timerInterval = setInterval(updateTimer, 1000);
+        
+        // SUBMIT EXAM FUNCTIONALITY
+        document.getElementById('submitExam').addEventListener('click', function() {
+            if (confirm("Are you sure you want to submit your examination? You cannot change answers after submission.")) {
+                submitExam();
             }
         });
-    });
-
-    // Submit button functionality
-    document.getElementById('submitExam').addEventListener('click', function() {
-        let score = 0;
-        let totalMarks = 60;
         
-        // Calculate score (simplified version)
-        // In a real implementation, you would validate all answers
+        function submitExam() {
+            clearInterval(timerInterval);
+            
+            let score = 0;
+            let totalQuestions = 40;
+            let answeredQuestions = 0;
+            
+            // Calculate score for multiple choice questions (Q1-30)
+            for (let i = 1; i <= 30; i++) {
+                const selectedOption = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selectedOption) {
+                    answeredQuestions++;
+                    if (selectedOption.dataset.correct === 'true') {
+                        score += 1;
+                    }
+                }
+            }
+            
+            // Calculate score for multiple select questions (Q31-35)
+            for (let i = 31; i <= 35; i++) {
+                const checkboxes = document.querySelectorAll(`input[name="q${i}"]:checked`);
+                if (checkboxes.length > 0) {
+                    answeredQuestions++;
+                    let questionScore = 0;
+                    let totalCorrect = 0;
+                    let selectedCorrect = 0;
+                    
+                    // Count total correct options for this question
+                    const allOptions = document.querySelectorAll(`input[name="q${i}"]`);
+                    allOptions.forEach(option => {
+                        if (option.dataset.correct === 'true') totalCorrect++;
+                    });
+                    
+                    // Count correctly selected options
+                    checkboxes.forEach(checkbox => {
+                        if (checkbox.dataset.correct === 'true') selectedCorrect++;
+                        else selectedCorrect--; // Penalize wrong selections
+                    });
+                    
+                    // Calculate partial score (max 3, min 0)
+                    questionScore = Math.max(0, (selectedCorrect / totalCorrect) * 3);
+                    score += questionScore;
+                }
+            }
+            
+            // For short answer questions (Q36-40), we'll just mark them as answered
+            for (let i = 36; i <= 40; i++) {
+                const textarea = document.querySelector(`textarea[name="q${i}"]`);
+                if (textarea && textarea.value.trim() !== '') {
+                    answeredQuestions++;
+                    // In a real system, these would be graded manually
+                    // For now, we'll give partial credit if any answer is provided
+                    score += 1.5; // Half marks for attempting
+                }
+            }
+            
+            // Display results
+            const percentage = ((score / 60) * 100).toFixed(1);
+            const passFail = percentage >= 70 ? "PASS" : "FAIL";
+            const passFailColor = percentage >= 70 ? "#4CAF50" : "#F44336";
+            
+            const resultsHTML = `
+                <div style="background-color: #e8f5e9; padding: 25px; border-radius: 10px; margin-top: 30px; border-left: 5px solid ${passFailColor};">
+                    <h3 style="color: ${passFailColor}; text-align: center; margin-bottom: 20px;">EXAMINATION RESULTS</h3>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; text-align: center;">
+                        <div style="margin: 10px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #0d47a1;">${score.toFixed(1)}</div>
+                            <div style="font-size: 14px; color: #666;">SCORE / 60</div>
+                        </div>
+                        <div style="margin: 10px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #0d47a1;">${percentage}%</div>
+                            <div style="font-size: 14px; color: #666;">PERCENTAGE</div>
+                        </div>
+                        <div style="margin: 10px;">
+                            <div style="font-size: 24px; font-weight: bold; color: ${passFailColor};">${passFail}</div>
+                            <div style="font-size: 14px; color: #666;">RESULT</div>
+                        </div>
+                        <div style="margin: 10px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #0d47a1;">${answeredQuestions}/40</div>
+                            <div style="font-size: 14px; color: #666;">QUESTIONS ATTEMPTED</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <p style="font-style: italic; color: #666;">Note: Short answer questions (Q36-40) are awarded partial credit for attempt. In a real examination, these would be graded by an instructor.</p>
+                    </div>
+                </div>
+            `;
+            
+            document.querySelector('.submit-section').innerHTML = resultsHTML;
+            
+            // Disable all inputs
+            document.querySelectorAll('input, textarea, button').forEach(element => {
+                element.disabled = true;
+            });
+            
+            // Scroll to results
+            window.scrollTo(0, document.body.scrollHeight);
+        }
         
-        alert(`Exam submitted! Your answers have been recorded. Maximum possible score: ${totalMarks} marks.`);
-        
-        // Show score display
-        document.getElementById('scoreDisplay').style.display = 'block';
-        document.getElementById('scoreDisplay').textContent = `Exam submitted. Maximum possible score: ${totalMarks} marks.`;
-    });
-</script>
-
-<style>
-    .section-header {
-        background-color: #e8f4fc;
-        padding: 10px;
-        margin: 20px 0 10px 0;
-        border-left: 4px solid #2196F3;
-    }
-    
-    .submit-section {
-        text-align: center;
-        margin: 30px 0;
-        padding: 20px;
-        background-color: #f5f5f5;
-        border-radius: 5px;
-    }
-    
-    #submitExam {
-        background-color: #4CAF50;
-        color: white;
-        padding: 12px 24px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-    
-    #submitExam:hover {
-        background-color: #45a049;
-    }
-</style>
+        // Add interactivity to show explanations for correct answers
+        document.querySelectorAll('input[type="radio"]').forEach(input => {
+            input.addEventListener('change', function() {
+                const questionCard = this.closest('.question-card');
+                const explanation = questionCard.querySelector('.explanation');
+                
+                if (explanation && this.dataset.correct === 'true') {
+                    explanation.style.display = 'block';
+                } else if (explanation) {
+                    explanation.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
